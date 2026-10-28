@@ -1,0 +1,3106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="violet">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Rivera — Senior Full-Stack Engineer & Creative Developer</title>
+  <meta name="description" content="Portfolio of Alex Rivera, Senior Full-Stack Engineer & Creative Developer specializing in high-performance web applications, AI integrations, and interactive 3D experiences." />
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. CSS CUSTOM PROPERTIES / DESIGN SYSTEM
+       ========================================================================== */
+    :root {
+      /* Base Typography */
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Accent themes: Violet (Default) */
+      --accent-hue: 265;
+      --accent-sat: 90%;
+      --accent-light: 62%;
+      --accent-primary: hsl(var(--accent-hue), var(--accent-sat), var(--accent-light));
+      --accent-glow: hsla(var(--accent-hue), var(--accent-sat), var(--accent-light), 0.35);
+      --accent-soft: hsla(var(--accent-hue), var(--accent-sat), var(--accent-light), 0.12);
+      --accent-gradient: linear-gradient(135deg, hsl(var(--accent-hue), 95%, 65%), hsl(calc(var(--accent-hue) + 40), 95%, 60%));
+
+      /* Secondary Accents */
+      --cyan: #06b6d4;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+
+      /* Transition Timings */
+      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out: cubic-bezier(0, 0, 0.2, 1);
+      --transition-fast: 0.18s var(--ease-smooth);
+      --transition-normal: 0.3s var(--ease-smooth);
+      --transition-spring: 0.5s var(--ease-spring);
+    }
+
+    /* Dark Mode Tokens (Default) */
+    [data-theme="dark"] {
+      --bg-base: #090a0f;
+      --bg-surface: #10121a;
+      --bg-card: rgba(18, 21, 31, 0.72);
+      --bg-card-hover: rgba(26, 30, 46, 0.88);
+      --bg-glass: rgba(16, 18, 26, 0.65);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --border-active: hsla(var(--accent-hue), var(--accent-sat), var(--accent-light), 0.5);
+
+      --text-main: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-on-accent: #ffffff;
+
+      --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+      --card-shadow-hover: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px var(--accent-glow);
+      --modal-overlay: rgba(3, 5, 10, 0.82);
+    }
+
+    /* Light Mode Tokens */
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: rgba(255, 255, 255, 0.98);
+      --bg-glass: rgba(255, 255, 255, 0.75);
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-medium: rgba(15, 23, 42, 0.16);
+      --border-active: hsla(var(--accent-hue), var(--accent-sat), var(--accent-light), 0.6);
+
+      --text-main: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --text-on-accent: #ffffff;
+
+      --card-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.04);
+      --card-shadow-hover: 0 20px 40px -15px rgba(15, 23, 42, 0.15), 0 0 25px var(--accent-glow);
+      --modal-overlay: rgba(15, 23, 42, 0.6);
+    }
+
+    /* Dynamic Accent Variations */
+    [data-accent="violet"] { --accent-hue: 265; }
+    [data-accent="cyan"]   { --accent-hue: 190; }
+    [data-accent="emerald"]{ --accent-hue: 155; }
+    [data-accent="amber"]  { --accent-hue: 35;  }
+    [data-accent="rose"]   { --accent-hue: 345; }
+
+    /* ==========================================================================
+       2. GLOBAL RESETS & FOUNDATIONS
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+
+    ::selection {
+      background-color: var(--accent-primary);
+      color: var(--text-on-accent);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+      color: inherit;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Container Utility */
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 2.5rem;
+      }
+    }
+
+    /* Section Utilities */
+    .section {
+      padding: 6.5rem 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 4rem auto;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-primary);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-glow);
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      font-family: var(--font-mono);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 3.25rem;
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Glowing Background Canvas & Spotlights */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+    }
+
+    .mesh-gradient-sphere {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+      animation: floatPulse 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatPulse {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, -40px) scale(1.15); }
+      100% { transform: translate(-40px, 50px) scale(0.95); }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-medium);
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+
+    /* ==========================================================================
+       3. CUSTOM WEB COMPONENT: <portfolio-nav>
+       ========================================================================== */
+    portfolio-nav {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: var(--bg-glass);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: all var(--transition-normal);
+    }
+
+    portfolio-nav.scrolled {
+      border-bottom-color: var(--border-medium);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.5rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: var(--accent-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px var(--accent-glow);
+      transition: transform var(--transition-spring);
+    }
+
+    .brand-logo:hover .brand-mark {
+      transform: rotate(10deg) scale(1.08);
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    @media (min-width: 900px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      position: relative;
+      padding: 0.5rem 0;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-main);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gradient);
+      border-radius: 2px;
+      transition: width var(--transition-normal);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .accent-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--bg-surface);
+      padding: 0.3rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .accent-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .accent-dot:hover {
+      transform: scale(1.25);
+    }
+
+    .accent-dot.active {
+      border-color: var(--text-main);
+      transform: scale(1.15);
+    }
+
+    .theme-toggle-btn {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .theme-toggle-btn:hover {
+      color: var(--accent-primary);
+      border-color: var(--border-medium);
+      transform: rotate(15deg);
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: transform var(--transition-spring), box-shadow var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-cta:hover::before {
+      left: 100%;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 0.5rem;
+    }
+
+    @media (min-width: 900px) {
+      .mobile-menu-toggle {
+        display: none;
+      }
+    }
+
+    .mobile-menu-toggle span {
+      width: 22px;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 2px;
+      transition: all var(--transition-fast);
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 4.5rem;
+      left: 0;
+      width: 100%;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-medium);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transform: translateY(-120%);
+      opacity: 0;
+      transition: transform var(--transition-normal), opacity var(--transition-normal);
+      pointer-events: none;
+      z-index: 99;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .mobile-drawer.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-drawer a {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       4. CUSTOM WEB COMPONENT: <hero-section>
+       ========================================================================== */
+    hero-section {
+      display: block;
+      position: relative;
+      padding: 7rem 0 5rem 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+      }
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      background-color: var(--emerald);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .status-dot::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 15px;
+      height: 15px;
+      background-color: var(--emerald);
+      opacity: 0.5;
+      border-radius: 50%;
+      animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes ping {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 2.85rem;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 4.25rem;
+      }
+    }
+
+    .hero-bio {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1px solid var(--border-medium);
+      backdrop-filter: blur(12px);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Tech Stack Marquee */
+    .hero-stack-preview {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-stack-chips {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Hero Avatar / Card Visual with 3D Tilt */
+    .hero-visual-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-card-3d {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(24px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow var(--transition-fast);
+      transform-style: preserve-3d;
+    }
+
+    .hero-card-3d::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 1.75rem auto;
+    }
+
+    .avatar-img-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 36px;
+      background: var(--accent-gradient);
+      padding: 4px;
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 32px;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-badge-float {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      background: var(--bg-surface);
+      border: 2px solid var(--accent-primary);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      color: var(--accent-primary);
+    }
+
+    .hero-card-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-card-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-code-snippet {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .hero-code-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-code-line:last-child {
+      margin-bottom: 0;
+    }
+
+    .code-key { color: var(--accent-primary); }
+    .code-val { color: var(--emerald); font-weight: 600; }
+
+    /* ==========================================================================
+       5. CUSTOM WEB COMPONENT: <stats-counter>
+       ========================================================================== */
+    stats-counter {
+      display: block;
+      margin-top: 4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-item {
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .stat-suffix {
+      color: var(--accent-primary);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+       6. CUSTOM WEB COMPONENT: <project-gallery> & <project-card>
+       ========================================================================== */
+    project-gallery {
+      display: block;
+    }
+
+    .filter-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-medium);
+      background: var(--bg-card-hover);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    project-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+      position: relative;
+      cursor: pointer;
+    }
+
+    project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--border-active);
+    }
+
+    .card-thumb-container {
+      position: relative;
+      height: 220px;
+      width: 100%;
+      background: var(--bg-surface);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-thumb-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+      transition: transform 0.5s ease;
+    }
+
+    project-card:hover .card-thumb-bg {
+      transform: scale(1.07);
+    }
+
+    .project-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(10px);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 2;
+    }
+
+    .card-body {
+      padding: 1.75rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .project-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .project-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.2rem;
+    }
+
+    .card-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      transition: gap var(--transition-fast);
+    }
+
+    .card-link-btn:hover {
+      gap: 0.7rem;
+    }
+
+    .icon-link {
+      color: var(--text-secondary);
+      transition: color var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.35rem;
+    }
+
+    .icon-link:hover {
+      color: var(--accent-primary);
+    }
+
+    /* ==========================================================================
+       7. CUSTOM WEB COMPONENT: <skill-matrix>
+       ========================================================================== */
+    skill-matrix {
+      display: block;
+    }
+
+    .skills-category-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .skills-category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .skills-category-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .skill-category-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--card-shadow);
+      transition: transform var(--transition-normal), border-color var(--transition-normal);
+    }
+
+    .skill-category-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-active);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .category-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-primary);
+    }
+
+    .category-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .skill-bars-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .skill-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .skill-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .skill-name {
+      color: var(--text-main);
+    }
+
+    .skill-percent {
+      color: var(--accent-primary);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+
+    .skill-track {
+      height: 8px;
+      width: 100%;
+      background: var(--border-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--accent-gradient);
+      width: 0%;
+      transition: width 1.2s var(--ease-spring);
+    }
+
+    /* ==========================================================================
+       8. CUSTOM WEB COMPONENT: <experience-timeline>
+       ========================================================================== */
+    experience-timeline {
+      display: block;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline-container {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 11px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-subtle);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-node {
+      position: absolute;
+      left: -2.5rem;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 3px solid var(--accent-primary);
+      box-shadow: 0 0 15px var(--accent-glow);
+      z-index: 2;
+    }
+
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--card-shadow);
+      transition: all var(--transition-normal);
+    }
+
+    .timeline-card:hover {
+      border-color: var(--border-active);
+      transform: translateX(6px);
+    }
+
+    .timeline-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-role {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .timeline-company {
+      font-size: 1rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    .timeline-period {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      color: var(--text-muted);
+    }
+
+    .timeline-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .timeline-achievements {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .timeline-achievements li {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .timeline-achievements li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    /* ==========================================================================
+       9. CUSTOM WEB COMPONENT: <testimonials-carousel>
+       ========================================================================== */
+    testimonials-carousel {
+      display: block;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-active);
+    }
+
+    .testimonial-quote {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      font-style: italic;
+    }
+
+    .testimonial-author-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 2px solid var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--accent-primary);
+    }
+
+    .author-info h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .author-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .star-rating {
+      color: var(--amber);
+      display: flex;
+      gap: 2px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* ==========================================================================
+       10. CUSTOM WEB COMPONENT: <contact-section>
+       ========================================================================== */
+    contact-section {
+      display: block;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+
+    @media (min-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+    }
+
+    .contact-details-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-highlight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 1.75rem;
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: all var(--transition-fast);
+    }
+
+    .contact-highlight-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateX(4px);
+    }
+
+    .contact-icon-bubble {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+    }
+
+    .contact-highlight-info h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-highlight-info p {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .copy-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      cursor: pointer;
+      margin-top: 0.4rem;
+      transition: all var(--transition-fast);
+    }
+
+    .copy-pill-btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-glow);
+    }
+
+    /* Live Timezone Clock */
+    .timezone-status {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-surface);
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      width: fit-content;
+    }
+
+    /* Contact Form */
+    .contact-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 28px;
+      padding: 2.5rem;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 14px;
+      padding: 0.9rem 1.25rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 14px;
+      background: var(--accent-gradient);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .form-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
+    /* ==========================================================================
+       11. CUSTOM WEB COMPONENT: <project-modal>
+       ========================================================================== */
+    project-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--modal-overlay);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+    }
+
+    project-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-dialog {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 28px;
+      max-width: 780px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      transform: scale(0.95) translateY(20px);
+      transition: transform var(--transition-spring);
+      position: relative;
+    }
+
+    project-modal.active .modal-dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      z-index: 10;
+      transition: all var(--transition-fast);
+    }
+
+    .modal-close-btn:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      transform: rotate(90deg);
+    }
+
+    .modal-preview-banner {
+      height: 280px;
+      background: var(--bg-card);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content-body {
+      padding: 2.25rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-category {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: var(--accent-primary);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .modal-text {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .modal-features-list {
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 600px) {
+      .modal-features-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .modal-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       12. CUSTOM WEB COMPONENT: <toast-system>
+       ========================================================================== */
+    toast-system {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-primary);
+      border-radius: 14px;
+      padding: 0.9rem 1.4rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideInRight 0.35s var(--ease-spring) forwards;
+      pointer-events: auto;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ==========================================================================
+       13. FOOTER
+       ========================================================================== */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      padding: 4rem 0 2rem 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .social-btn:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--accent-glow);
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient Interactive Canvas for dynamic mesh particle backdrop -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Glowing Mesh gradient blurs -->
+  <div class="mesh-gradient-sphere" style="top: 10%; left: 15%; width: 500px; height: 500px; background: var(--accent-primary);"></div>
+  <div class="mesh-gradient-sphere" style="top: 60%; right: 10%; width: 450px; height: 450px; background: var(--cyan); animation-delay: -5s;"></div>
+
+  <!-- Component: Portfolio Navigation -->
+  <portfolio-nav id="navbar"></portfolio-nav>
+
+  <main>
+    <!-- Component: Hero Section -->
+    <hero-section id="home"></hero-section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured Work</span>
+          <h2 class="section-title">Selected <span class="gradient-text">Masterpieces</span></h2>
+          <p class="section-subtitle">
+            A curated showcase of high-impact production applications, scalable architectures, and interactive digital interfaces built with cutting-edge tools.
+          </p>
+        </div>
+
+        <!-- Component: Project Gallery with Category Filter -->
+        <project-gallery></project-gallery>
+      </div>
+    </section>
+
+    <!-- Skills & Architecture Section -->
+    <section class="section" id="skills" style="background: var(--bg-surface); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Capabilities</span>
+          <h2 class="section-title">Technical <span class="gradient-text">Expertise</span></h2>
+          <p class="section-subtitle">
+            Mastery across the modern software engineering lifecycle, from high-throughput distributed microservices to pixel-perfect interactive web interfaces.
+          </p>
+        </div>
+
+        <!-- Component: Skill Matrix -->
+        <skill-matrix></skill-matrix>
+      </div>
+    </section>
+
+    <!-- Experience & Career Timeline Section -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Journey</span>
+          <h2 class="section-title">Career <span class="gradient-text">Timeline</span></h2>
+          <p class="section-subtitle">
+            Track record of shipping impactful software, driving engineering velocity, and leading high-performing development teams.
+          </p>
+        </div>
+
+        <!-- Component: Experience Timeline -->
+        <experience-timeline></experience-timeline>
+      </div>
+    </section>
+
+    <!-- Client Testimonials Section -->
+    <section class="section" id="testimonials" style="background: var(--bg-surface); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Endorsements</span>
+          <h2 class="section-title">What Leaders <span class="gradient-text">Say</span></h2>
+          <p class="section-subtitle">
+            Feedback from founders, CTOs, and product directors on collaboration, architectural rigor, and velocity.
+          </p>
+        </div>
+
+        <!-- Component: Testimonials Carousel -->
+        <testimonials-carousel></testimonials-carousel>
+      </div>
+    </section>
+
+    <!-- Contact & Work Collaboration Section -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">Let’s Build Something <span class="gradient-text">Extraordinary</span></h2>
+          <p class="section-subtitle">
+            Have a moonshot product in mind or looking for a senior lead to supercharge your engineering team? Let's connect.
+          </p>
+        </div>
+
+        <!-- Component: Contact Section -->
+        <contact-section></contact-section>
+      </div>
+    </section>
+  </main>
+
+  <!-- Component: Project Details Modal -->
+  <project-modal id="projectModal"></project-modal>
+
+  <!-- Component: Toast System -->
+  <toast-system id="toastSystem"></toast-system>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 0.5rem;">
+            <div class="brand-mark">AR</div>
+            <span>Alex Rivera</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 320px;">
+            Full-Stack Engineer & Creative Technologist crafting world-class digital experiences.
+          </p>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#projects">Work</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="footer-socials">
+          <a href="https://github.com" target="_blank" class="social-btn" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="social-btn" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="https://twitter.com" target="_blank" class="social-btn" aria-label="Twitter">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="copyright">
+        &copy; <span id="currentYear"></span> Alex Rivera. Designed with custom Web Components, CSS tokens & vanilla JS. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       14. JAVASCRIPT & WEB COMPONENTS LOGIC
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       DATA STORE: PROJECTS, SKILLS, EXPERIENCE, TESTIMONIALS
+       ========================================================================== */
+    const PORTFOLIO_DATA = {
+      profile: {
+        name: "Alex Rivera",
+        title: "Senior Full-Stack & Creative Developer",
+        location: "San Francisco, CA (PST / UTC-7)",
+        email: "alex.rivera.dev@gmail.com",
+        experienceYears: "7+",
+        completedProjects: "48+",
+        clientSatisfaction: "99.4%",
+        githubStars: "1.4k+"
+      },
+      projects: [
+        {
+          id: "nexus-ai",
+          title: "Nexus Neural Studio",
+          category: "ai",
+          categoryLabel: "AI & Machine Learning",
+          badge: "Featured AI Platform",
+          description: "Enterprise multimodal AI orchestration studio featuring visual pipeline builders, real-time token telemetry, and custom LLM model fine-tuning dashboards.",
+          tech: ["Next.js 14", "Python / FastAPI", "WebSockets", "PyTorch", "TailwindCSS"],
+          liveUrl: "https://example.com/nexus-ai",
+          githubUrl: "https://github.com/example/nexus-ai",
+          metrics: "Processed 12M+ monthly inferences with <45ms median gateway latency.",
+          overview: "Nexus Neural Studio is designed for enterprise teams wanting rapid experiment loops on generative AI workflows. Built with an event-driven microservices architecture and WebGPU-accelerated node canvas.",
+          features: [
+            "Real-time visual node graph canvas for chaining LLM prompts and tools",
+            "Sub-50ms streaming token inference via HTTP/2 and WebSockets",
+            "Automated prompt evaluation with benchmark scoring & regression tests",
+            "Role-based access control with SOC-2 type II compliance tooling"
+          ],
+          svgBg: `<svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#0d111d"/>
+            <circle cx="200" cy="120" r="80" stroke="url(#g1)" stroke-width="2" opacity="0.4"/>
+            <circle cx="200" cy="120" r="50" stroke="url(#g1)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <path d="M80 180 L200 60 L320 180 Z" stroke="url(#g1)" stroke-width="2" opacity="0.6"/>
+            <circle cx="200" cy="60" r="6" fill="#8b5cf6"/>
+            <circle cx="80" cy="180" r="6" fill="#06b6d4"/>
+            <circle cx="320" cy="180" r="6" fill="#ec4899"/>
+            <defs>
+              <linearGradient id="g1" x1="80" y1="60" x2="320" y2="180" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#8b5cf6"/>
+                <stop offset="1" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+          </svg>`
+        },
+        {
+          id: "hyper-cloud",
+          title: "HyperScale Kubernetes Observability",
+          category: "fullstack",
+          categoryLabel: "Distributed Systems",
+          badge: "Cloud Infra",
+          description: "High-throughput cloud cluster monitoring platform capable of processing 80,000 telemetry events per second with sub-second distributed tracing.",
+          tech: ["Go (Golang)", "React", "ClickHouse", "gRPC", "Docker / K8s"],
+          liveUrl: "https://example.com/hyperscale",
+          githubUrl: "https://github.com/example/hyperscale",
+          metrics: "Reduced system MTTR by 42% across 600+ microservices.",
+          overview: "Designed for high-concurrency cloud native infrastructures. HyperScale combines columnar data aggregation with dynamic heatmaps and distributed spans exploration.",
+          features: [
+            "ClickHouse columnar database engine processing 80k events/sec",
+            "Zero-dependency eBPF agents for frictionless kernel-level metrics",
+            "Predictive anomaly detection driven by statistical trend algorithms",
+            "Seamless integrations with Slack, PagerDuty, and Opsgenie"
+          ],
+          svgBg: `<svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#0b1329"/>
+            <rect x="50" y="40" width="130" height="70" rx="10" fill="#132044" stroke="#06b6d4" stroke-width="1.5"/>
+            <rect x="220" y="40" width="130" height="70" rx="10" fill="#132044" stroke="#8b5cf6" stroke-width="1.5"/>
+            <rect x="135" y="140" width="130" height="70" rx="10" fill="#132044" stroke="#10b981" stroke-width="1.5"/>
+            <line x1="115" y1="110" x2="200" y2="140" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>
+            <line x1="285" y1="110" x2="200" y2="140" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>
+          </svg>`
+        },
+        {
+          id: "synth-3d",
+          title: "Vivid Dimension 3D Web Studio",
+          category: "creative",
+          categoryLabel: "Creative UI & WebGPU",
+          badge: "Interactive 3D",
+          description: "Browser-based 3D scene configurator with real-time PBR material rendering, spatial audio immersion, and glTF asset compression pipeline.",
+          tech: ["Three.js", "WebAudio API", "TypeScript", "GLSL Shaders", "Vite"],
+          liveUrl: "https://example.com/vivid3d",
+          githubUrl: "https://github.com/example/vivid3d",
+          metrics: "60 FPS steady rendering across high-DPI desktop and mobile devices.",
+          overview: "An exploratory creative tech experiment pushing the boundaries of WebGL/WebGPU in modern browsers without cumbersome plugins.",
+          features: [
+            "Physically Based Rendering (PBR) with custom GLSL lighting shaders",
+            "Binaural 3D spatial sound engine matching dynamic listener coordinates",
+            "Draco mesh decompression achieving 78% reduction in initial payload",
+            "Interactive physics simulations powered by Rapier.js"
+          ],
+          svgBg: `<svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#140924"/>
+            <circle cx="200" cy="120" r="70" fill="url(#g3)" opacity="0.8"/>
+            <ellipse cx="200" cy="120" rx="120" ry="35" stroke="#f43f5e" stroke-width="2" transform="rotate(-20 200 120)"/>
+            <ellipse cx="200" cy="120" rx="100" ry="25" stroke="#a855f7" stroke-width="1.5" transform="rotate(25 200 120)"/>
+            <defs>
+              <linearGradient id="g3" x1="130" y1="50" x2="270" y2="190" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ec4899"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>`
+        },
+        {
+          id: "cryptoflow",
+          title: "Aura DEX Liquidity Protocol",
+          category: "fullstack",
+          categoryLabel: "FinTech & Web3",
+          badge: "Fintech Platform",
+          description: "Institutional decentralized liquidity trading aggregator featuring algorithmic order routing, real-time depth charts, and gas fee optimization.",
+          tech: ["Solidity", "Ethers.js", "React", "Rust", "TailwindCSS"],
+          liveUrl: "https://example.com/auradex",
+          githubUrl: "https://github.com/example/auradex",
+          metrics: "$140M+ total volume processed with zero smart contract vulnerabilities.",
+          overview: "Aura protocol was audited by OpenZeppelin and features optimized virtual AMM liquidity curves designed for minimal slippage.",
+          features: [
+            "High-frequency order routing across 8 independent liquidity pools",
+            "Gas-efficient Solidity contracts optimized via inline Yul assembly",
+            "Interactive depth chart powered by Canvas2D and WebSocket tickers",
+            "Hardware wallet integrations (Ledger, Trezor, MetaMask)"
+          ],
+          svgBg: `<svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#081717"/>
+            <path d="M40 180 Q100 160 160 120 T280 80 T360 40" stroke="#10b981" stroke-width="3" fill="none"/>
+            <path d="M40 180 Q100 160 160 120 T280 80 T360 40 L360 220 L40 220 Z" fill="url(#g4)" opacity="0.25"/>
+            <circle cx="280" cy="80" r="6" fill="#10b981"/>
+            <defs>
+              <linearGradient id="g4" x1="40" y1="40" x2="40" y2="220" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#10b981"/>
+                <stop offset="1" stop-color="transparent"/>
+              </linearGradient>
+            </defs>
+          </svg>`
+        },
+        {
+          id: "pulse-crm",
+          title: "Pulse Autonomous Workspace",
+          category: "ai",
+          categoryLabel: "Productivity & AI",
+          badge: "SaaS App",
+          description: "Collaborative knowledge base that uses vector embeddings to automatically summarize meeting records, link tasks, and draft release documentation.",
+          tech: ["Vue 3", "Node.js", "Pinecone", "OpenAI API", "PostgreSQL"],
+          liveUrl: "https://example.com/pulse-workspace",
+          githubUrl: "https://github.com/example/pulse-workspace",
+          metrics: "Used by 4,500+ active knowledge workers weekly.",
+          overview: "A streamlined, keyboard-first desktop experience combining Notion-like block editing with context-aware semantic search.",
+          features: [
+            "Instant hybrid semantic + lexical search over hundreds of thousands of docs",
+            "Local-first CRDT synchronization for conflict-free offline document edits",
+            "Automated weekly sprint changelogs generated from commit history",
+            "Custom command palette with 50+ keyboard accelerators"
+          ],
+          svgBg: `<svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#1c1306"/>
+            <rect x="70" y="50" width="260" height="140" rx="16" fill="#2d1f0a" stroke="#f59e0b" stroke-width="1.5"/>
+            <line x1="100" y1="85" x2="220" y2="85" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+            <line x1="100" y1="115" x2="300" y2="115" stroke="#fef3c7" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+            <line x1="100" y1="145" x2="260" y2="145" stroke="#fef3c7" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+          </svg>`
+        },
+        {
+          id: "aerocode",
+          title: "Aero WebAssembly Audio Engine",
+          category: "creative",
+          categoryLabel: "Audio DSP & WebAssembly",
+          badge: "Wasm Audio",
+          description: "Zero-latency in-browser digital audio workstation (DAW) utilizing C++ audio synthesis compiled directly to WebAssembly with SIMD acceleration.",
+          tech: ["WebAssembly", "C++", "AudioWorklet", "Canvas API", "TypeScript"],
+          liveUrl: "https://example.com/aerocode",
+          githubUrl: "https://github.com/example/aerocode",
+          metrics: "<3.5ms buffer roundtrip latency on Chrome and Safari.",
+          overview: "Built to demonstrate the raw processing power of WebAssembly SIMD for multi-track real-time audio convolution reverb and synthesis.",
+          features: [
+            "Real-time audio DSP thread operating outside the main JS event loop",
+            "Sub-sample accurate MIDI sequencer with multi-track automation curves",
+            "Parametric 8-band visual equalizer rendered at smooth 60fps on Canvas",
+            "Export to 32-bit floating point WAV and lossless FLAC formats"
+          ],
+          svgBg: `<svg width="100%" height="100%" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#14081c"/>
+            <path d="M40 120 Q 80 40, 120 120 T 200 120 T 280 120 T 360 120" stroke="#c084fc" stroke-width="3" fill="none"/>
+            <path d="M40 120 Q 80 170, 120 120 T 200 120 T 280 120 T 360 120" stroke="#38bdf8" stroke-width="2" fill="none" opacity="0.7"/>
+            <circle cx="200" cy="120" r="5" fill="#f43f5e"/>
+          </svg>`
+        }
+      ],
+      skills: [
+        {
+          category: "Frontend & Architecture",
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`,
+          items: [
+            { name: "TypeScript / JavaScript (ESNext)", level: 98 },
+            { name: "React / Next.js 14 App Router", level: 96 },
+            { name: "Vue 3 / Nuxt / State Management", level: 90 },
+            { name: "Modern CSS / Design Systems", level: 95 },
+            { name: "Three.js / WebGL / Canvas2D", level: 86 }
+          ]
+        },
+        {
+          category: "Backend & Distributed Systems",
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`,
+          items: [
+            { name: "Node.js / Express / Fastify", level: 94 },
+            { name: "Go (Golang) Microservices", level: 88 },
+            { name: "PostgreSQL / Redis / ClickHouse", level: 92 },
+            { name: "GraphQL & REST API Design", level: 95 },
+            { name: "gRPC & Protocol Buffers", level: 85 }
+          ]
+        },
+        {
+          category: "AI, Cloud & DevOps",
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`,
+          items: [
+            { name: "Docker & Kubernetes Deployment", level: 90 },
+            { name: "AWS Cloud (ECS, Lambda, S3, IAM)", level: 89 },
+            { name: "LangChain / OpenAI / Vector DBs", level: 92 },
+            { name: "CI/CD (GitHub Actions, Terraform)", level: 87 },
+            { name: "Performance Profiling & Observability", level: 93 }
+          ]
+        }
+      ],
+      experience: [
+        {
+          role: "Staff Full-Stack Engineer",
+          company: "Veloce Technologies Inc.",
+          period: "2023 — Present",
+          description: "Leading the core frontend architecture and high-throughput real-time streaming pipeline for enterprise analytics solutions.",
+          achievements: [
+            "Architected real-time WebSocket dashboard handling 450k concurrent connected sessions with zero dropped frames.",
+            "Mentored a team of 14 engineers across 3 time zones and standardized design system tokens across 6 internal platforms.",
+            "Cut median page payload by 58% and boosted Core Web Vitals score to 99/100."
+          ]
+        },
+        {
+          role: "Senior Full-Stack Developer",
+          company: "Apex Cloud Studios",
+          period: "2021 — 2023",
+          description: "Spearheaded greenfield product development for distributed cloud monitoring and client-facing generative AI tools.",
+          achievements: [
+            "Designed and shipped 3 tier-1 enterprise SaaS web apps generating over $4.2M in annual recurring revenue.",
+            "Integrated custom LLM pipelines with vector search, reducing client support resolution time by 65%.",
+            "Refactored monolithic API services into Go-powered microservices, reducing cloud computing costs by 34%."
+          ]
+        },
+        {
+          role: "Software Engineer & Creative Lead",
+          company: "Nexus Interactive Digital",
+          period: "2019 — 2021",
+          description: "Crafted interactive 3D web applications, micro-frontends, and high-conversion e-commerce web applications for global brands.",
+          achievements: [
+            "Developed bespoke WebGL/Three.js interactive product visualizers for Fortune 500 consumer brands.",
+            "Collaborated with product designers to create an award-winning UI component library with 100% unit test coverage."
+          ]
+        }
+      ],
+      testimonials: [
+        {
+          quote: "Alex is that rare 1% engineer who bridges deep low-level architectural rigor with an impeccable eye for design aesthetics. Shipped our flagship platform 3 weeks ahead of schedule.",
+          author: "Elena Rostova",
+          role: "VP of Engineering at Datacore",
+          avatarInitial: "ER",
+          rating: 5
+        },
+        {
+          quote: "The visual polish and performance Alex brought to our AI studio was game-changing. Our enterprise customers constantly compliment how snappy and intuitive the UI is.",
+          author: "Marcus Thorne",
+          role: "Founder & CEO at SynthLabs",
+          avatarInitial: "MT",
+          rating: 5
+        },
+        {
+          quote: "Not only does Alex write clean, rock-solid code, but their communication and proactive problem solving elevated our entire engineering department culture.",
+          author: "Sarah Lin",
+          role: "Director of Product at Apex Cloud",
+          avatarInitial: "SL",
+          rating: 5
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       COMPONENT 1: <portfolio-nav>
+       ========================================================================== */
+    class PortfolioNavbar extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="container nav-container">
+            <a href="#home" class="brand-logo" aria-label="Alex Rivera Portfolio Home">
+              <div class="brand-mark">AR</div>
+              <span>Alex Rivera</span>
+            </a>
+
+            <ul class="nav-links">
+              <li><a href="#home" class="nav-link active">Home</a></li>
+              <li><a href="#projects" class="nav-link">Work</a></li>
+              <li><a href="#skills" class="nav-link">Skills</a></li>
+              <li><a href="#experience" class="nav-link">Experience</a></li>
+              <li><a href="#testimonials" class="nav-link">Endorsements</a></li>
+              <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+              <!-- Color Accent Switcher -->
+              <div class="accent-selector" title="Change Color Accent">
+                <div class="accent-dot active" data-color="violet" style="background:#8b5cf6;" title="Violet Theme"></div>
+                <div class="accent-dot" data-color="cyan" style="background:#06b6d4;" title="Cyan Theme"></div>
+                <div class="accent-dot" data-color="emerald" style="background:#10b981;" title="Emerald Theme"></div>
+                <div class="accent-dot" data-color="amber" style="background:#f59e0b;" title="Amber Theme"></div>
+                <div class="accent-dot" data-color="rose" style="background:#f43f5e;" title="Rose Theme"></div>
+              </div>
+
+              <!-- Dark / Light Mode Switcher -->
+              <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme">
+                <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              </button>
+
+              <a href="#contact" class="btn-cta" style="display:none; @media(min-width:600px){display:inline-flex;}">
+                Let's Talk
+              </a>
+
+              <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="mobile-drawer" id="mobileDrawer">
+            <a href="#home" class="mobile-nav-item">Home</a>
+            <a href="#projects" class="mobile-nav-item">Work</a>
+            <a href="#skills" class="mobile-nav-item">Skills</a>
+            <a href="#experience" class="mobile-nav-item">Experience</a>
+            <a href="#testimonials" class="mobile-nav-item">Endorsements</a>
+            <a href="#contact" class="mobile-nav-item">Contact</a>
+            <a href="#contact" class="btn-cta" style="text-align:center; justify-content:center; margin-top:1rem;">Let's Talk</a>
+          </div>
+        `;
+
+        this.initEvents();
+      }
+
+      initEvents() {
+        const themeBtn = this.querySelector('#themeToggleBtn');
+        const themeIcon = this.querySelector('#themeIcon');
+        const mobileBtn = this.querySelector('#mobileMenuBtn');
+        const mobileDrawer = this.querySelector('#mobileDrawer');
+        const accentDots = this.querySelectorAll('.accent-dot');
+        const navLinks = this.querySelectorAll('.nav-link, .mobile-nav-item');
+
+        // Scroll blur effect
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 40) {
+            this.classList.add('scrolled');
+          } else {
+            this.classList.remove('scrolled');
+          }
+        });
+
+        // Theme Toggle
+        themeBtn.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('portfolio_theme', newTheme);
+
+          // Update icon
+          if (newTheme === 'light') {
+            themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+          } else {
+            themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+          }
+
+          toastSystem.show(`Theme switched to ${newTheme} mode`);
+        });
+
+        // Accent Color Switcher
+        accentDots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const color = dot.getAttribute('data-color');
+            document.documentElement.setAttribute('data-accent', color);
+            accentDots.forEach(d => d.classList.remove('active'));
+            dot.classList.add('active');
+            localStorage.setItem('portfolio_accent', color);
+            toastSystem.show(`Color palette updated to ${color}`);
+          });
+        });
+
+        // Mobile Menu Drawer
+        mobileBtn.addEventListener('click', () => {
+          mobileDrawer.classList.toggle('open');
+        });
+
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileDrawer.classList.remove('open');
+          });
+        });
+
+        // Active link highlighting on scroll
+        const sections = document.querySelectorAll('section, hero-section');
+        window.addEventListener('scroll', () => {
+          let current = '';
+          const scrollPos = window.scrollY + 200;
+          sections.forEach(sec => {
+            const top = sec.offsetTop;
+            const height = sec.offsetHeight;
+            if (scrollPos >= top && scrollPos < top + height) {
+              current = sec.getAttribute('id');
+            }
+          });
+
+          this.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+              link.classList.add('active');
+            }
+          });
+        });
+      }
+    }
+    customElements.define('portfolio-nav', PortfolioNavbar);
+
+    /* ==========================================================================
+       COMPONENT 2: <hero-section>
+       ========================================================================== */
+    class HeroSection extends HTMLElement {
+      connectedCallback() {
+        const { profile } = PORTFOLIO_DATA;
+        this.innerHTML = `
+          <div class="container">
+            <div class="hero-grid">
+              <div class="hero-content">
+                <div class="status-pill">
+                  <span class="status-dot"></span>
+                  <span>Available for Senior Roles & High-Impact Contracts</span>
+                </div>
+
+                <h1 class="hero-title">
+                  Engineering <span class="gradient-text">Exceptional</span> Web Realities.
+                </h1>
+
+                <p class="hero-bio">
+                  Hi, I’m <strong>${profile.name}</strong> — a ${profile.title}. I specialize in architecting resilient distributed systems, interactive WebGL experiences, and enterprise AI web applications designed for hyper-scale.
+                </p>
+
+                <div class="hero-cta-group">
+                  <a href="#projects" class="btn-cta">
+                    <span>Explore Selected Work</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </a>
+
+                  <a href="#contact" class="btn-secondary">
+                    <span>Get in Touch</span>
+                  </a>
+
+                  <button class="btn-secondary" id="resumeQuickBtn" title="Download Resume CV">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Resume.pdf</span>
+                  </button>
+                </div>
+
+                <div class="hero-stack-preview">
+                  <span>CORE STACK:</span>
+                  <div class="hero-stack-chips">
+                    <span class="tech-pill">TypeScript</span>
+                    <span class="tech-pill">React / Next.js</span>
+                    <span class="tech-pill">Go</span>
+                    <span class="tech-pill">Three.js</span>
+                    <span class="tech-pill">Python / LLMs</span>
+                    <span class="tech-pill">Kubernetes</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3D Card Interactive Preview -->
+              <div class="hero-visual-wrapper">
+                <div class="hero-card-3d" id="heroCard3D">
+                  <div class="avatar-wrapper">
+                    <div class="avatar-img-frame">
+                      <div class="avatar-inner">
+                        <span>AR</span>
+                      </div>
+                    </div>
+                    <div class="avatar-badge-float" title="Verified Senior Full-Stack Specialist">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                  </div>
+
+                  <h3 class="hero-card-title">${profile.name}</h3>
+                  <p class="hero-card-subtitle">Staff Software Engineer & Creative Lead</p>
+
+                  <div class="hero-code-snippet">
+                    <div class="hero-code-line">
+                      <span class="code-key">const engineer</span>
+                      <span class="code-val">= {</span>
+                    </div>
+                    <div class="hero-code-line" style="padding-left:1rem;">
+                      <span class="code-key">focus:</span>
+                      <span>"FullStack + AI + 3D",</span>
+                    </div>
+                    <div class="hero-code-line" style="padding-left:1rem;">
+                      <span class="code-key">architecture:</span>
+                      <span>"Resilient & High-Perf",</span>
+                    </div>
+                    <div class="hero-code-line" style="padding-left:1rem;">
+                      <span class="code-key">status:</span>
+                      <span class="code-val">"Ready to Ship"</span>
+                    </div>
+                    <div class="hero-code-line">
+                      <span>};</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Counter Sub-Component -->
+            <stats-counter></stats-counter>
+          </div>
+        `;
+
+        this.initCardTilt();
+
+        const resumeBtn = this.querySelector('#resumeQuickBtn');
+        resumeBtn.addEventListener('click', () => {
+          toastSystem.show('Resume CV download initiated. (Sample PDF bundle)');
+        });
+      }
+
+      initCardTilt() {
+        const card = this.querySelector('#heroCard3D');
+        if (!card) return;
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -12;
+          const rotateY = ((x - centerX) / centerX) * 12;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+      }
+    }
+    customElements.define('hero-section', HeroSection);
+
+    /* ==========================================================================
+       COMPONENT 3: <stats-counter>
+       ========================================================================== */
+    class StatsCounter extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">
+                <span class="counter-value" data-target="7">0</span>
+                <span class="stat-suffix">+</span>
+              </div>
+              <div class="stat-label">Years of Experience</div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-number">
+                <span class="counter-value" data-target="48">0</span>
+                <span class="stat-suffix">+</span>
+              </div>
+              <div class="stat-label">Production Apps Shipped</div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-number">
+                <span class="counter-value" data-target="99">0</span>
+                <span class="stat-suffix">.4%</span>
+              </div>
+              <div class="stat-label">Client Satisfaction</div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-number">
+                <span class="counter-value" data-target="1400">0</span>
+                <span class="stat-suffix">+</span>
+              </div>
+              <div class="stat-label">Open Source Stars</div>
+            </div>
+          </div>
+        `;
+
+        this.initCounterObserver();
+      }
+
+      initCounterObserver() {
+        const counters = this.querySelectorAll('.counter-value');
+        let animated = false;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !animated) {
+              animated = true;
+              counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 1600;
+                const startTime = performance.now();
+
+                const updateCount = (currentTime) => {
+                  const elapsed = currentTime - startTime;
+                  const progress = Math.min(elapsed / duration, 1);
+                  // easeOutQuad
+                  const easeProgress = 1 - (1 - progress) * (1 - progress);
+                  const currentVal = Math.floor(easeProgress * target);
+
+                  counter.innerText = currentVal >= 1000 ? (currentVal / 1000).toFixed(1) + 'k' : currentVal;
+
+                  if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                  } else {
+                    counter.innerText = target >= 1000 ? (target / 1000).toFixed(1) + 'k' : target;
+                  }
+                };
+
+                requestAnimationFrame(updateCount);
+              });
+            }
+          });
+        }, { threshold: 0.3 });
+
+        observer.observe(this);
+      }
+    }
+    customElements.define('stats-counter', StatsCounter);
+
+    /* ==========================================================================
+       COMPONENT 4: <project-card>
+       ========================================================================== */
+    class ProjectCard extends HTMLElement {
+      connectedCallback() {
+        const dataId = this.getAttribute('data-id');
+        const project = PORTFOLIO_DATA.projects.find(p => p.id === dataId);
+        if (!project) return;
+
+        this.innerHTML = `
+          <div class="card-thumb-container">
+            <div class="card-thumb-bg">${project.svgBg}</div>
+            <span class="project-badge">${project.badge}</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="project-title">
+              <span>${project.title}</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </h3>
+            <p class="project-desc">${project.description}</p>
+
+            <div class="project-tech-tags">
+              ${project.tech.map(t => `<span class="tech-pill">${t}</span>`).join('')}
+            </div>
+
+            <div class="card-footer">
+              <button class="card-link-btn view-details-btn">
+                <span>Explore Case Study</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+
+              <div style="display: flex; gap: 0.5rem;" onclick="event.stopPropagation();">
+                <a href="${project.githubUrl}" target="_blank" class="icon-link" aria-label="GitHub Repository">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="${project.liveUrl}" target="_blank" class="icon-link" aria-label="Live Demo Link">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        this.addEventListener('click', () => {
+          projectModal.open(project);
+        });
+      }
+    }
+    customElements.define('project-card', ProjectCard);
+
+    /* ==========================================================================
+       COMPONENT 5: <project-gallery>
+       ========================================================================== */
+    class ProjectGallery extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All Disciplines</button>
+            <button class="filter-btn" data-filter="ai">AI & Machine Learning</button>
+            <button class="filter-btn" data-filter="fullstack">Full-Stack Cloud</button>
+            <button class="filter-btn" data-filter="creative">Creative UI & 3D</button>
+          </div>
+
+          <div class="projects-grid" id="projectsContainer">
+            ${PORTFOLIO_DATA.projects.map(p => `<project-card data-id="${p.id}" data-category="${p.category}"></project-card>`).join('')}
+          </div>
+        `;
+
+        this.initFilters();
+      }
+
+      initFilters() {
+        const filterBtns = this.querySelectorAll('.filter-btn');
+        const cards = this.querySelectorAll('project-card');
+
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+
+            cards.forEach(card => {
+              const cat = card.getAttribute('data-category');
+              if (filter === 'all' || cat === filter) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.4s var(--ease-smooth)';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        });
+      }
+    }
+    customElements.define('project-gallery', ProjectGallery);
+
+    /* ==========================================================================
+       COMPONENT 6: <skill-matrix>
+       ========================================================================== */
+    class SkillMatrix extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="skills-category-grid">
+            ${PORTFOLIO_DATA.skills.map(cat => `
+              <div class="skill-category-card">
+                <div class="category-header">
+                  <div class="category-icon">${cat.icon}</div>
+                  <h3 class="category-title">${cat.category}</h3>
+                </div>
+
+                <div class="skill-bars-list">
+                  ${cat.items.map(item => `
+                    <div class="skill-item">
+                      <div class="skill-meta">
+                        <span class="skill-name">${item.name}</span>
+                        <span class="skill-percent">${item.level}%</span>
+                      </div>
+                      <div class="skill-track">
+                        <div class="skill-fill" data-level="${item.level}"></div>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        this.initAnimation();
+      }
+
+      initAnimation() {
+        const fills = this.querySelectorAll('.skill-fill');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              fills.forEach(fill => {
+                const target = fill.getAttribute('data-level');
+                fill.style.width = `${target}%`;
+              });
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.2 });
+
+        observer.observe(this);
+      }
+    }
+    customElements.define('skill-matrix', SkillMatrix);
+
+    /* ==========================================================================
+       COMPONENT 7: <experience-timeline>
+       ========================================================================== */
+    class ExperienceTimeline extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="timeline-container">
+            ${PORTFOLIO_DATA.experience.map(item => `
+              <div class="timeline-item">
+                <div class="timeline-node"></div>
+                <div class="timeline-card">
+                  <div class="timeline-header">
+                    <div>
+                      <h3 class="timeline-role">${item.role}</h3>
+                      <span class="timeline-company">${item.company}</span>
+                    </div>
+                    <span class="timeline-period">${item.period}</span>
+                  </div>
+
+                  <p class="timeline-desc">${item.description}</p>
+
+                  <ul class="timeline-achievements">
+                    ${item.achievements.map(ach => `<li>${ach}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+    customElements.define('experience-timeline', ExperienceTimeline);
+
+    /* ==========================================================================
+       COMPONENT 8: <testimonials-carousel>
+       ========================================================================== */
+    class TestimonialsCarousel extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="testimonials-grid">
+            ${PORTFOLIO_DATA.testimonials.map(item => `
+              <div class="testimonial-card">
+                <div>
+                  <div class="star-rating">
+                    ${'★'.repeat(item.rating)}
+                  </div>
+                  <p class="testimonial-quote">"${item.quote}"</p>
+                </div>
+
+                <div class="testimonial-author-row">
+                  <div class="author-avatar">${item.avatarInitial}</div>
+                  <div class="author-info">
+                    <h4>${item.author}</h4>
+                    <p>${item.role}</p>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+    customElements.define('testimonials-carousel', TestimonialsCarousel);
+
+    /* ==========================================================================
+       COMPONENT 9: <contact-section>
+       ========================================================================== */
+    class ContactSection extends HTMLElement {
+      connectedCallback() {
+        const { profile } = PORTFOLIO_DATA;
+        this.innerHTML = `
+          <div class="contact-grid">
+            <div class="contact-details-box">
+              <div class="contact-highlight-card">
+                <div class="contact-icon-bubble">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="contact-highlight-info">
+                  <h4>Direct Inquiry</h4>
+                  <p id="emailDisplay">${profile.email}</p>
+                  <button class="copy-pill-btn" id="copyEmailBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span>Copy Address</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="contact-highlight-card">
+                <div class="contact-icon-bubble">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="contact-highlight-info">
+                  <h4>Base Location</h4>
+                  <p>${profile.location}</p>
+                </div>
+              </div>
+
+              <div class="timezone-status" id="clockDisplay">
+                <span class="status-dot"></span>
+                <span>Local Time: <strong id="liveTime">--:--:--</strong></span>
+              </div>
+            </div>
+
+            <!-- Interactive Contact Form -->
+            <div class="contact-form-card">
+              <form id="portfolioContactForm">
+                <div class="form-group">
+                  <label class="form-label" for="userName">Full Name</label>
+                  <input type="text" id="userName" class="form-input" placeholder="e.g. Sarah Connor" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="userEmail">Work Email</label>
+                  <input type="email" id="userEmail" class="form-input" placeholder="sarah@company.com" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="projectBudget">Project Scope / Budget</label>
+                  <input type="text" id="projectBudget" class="form-input" placeholder="e.g. $10k - $25k or Full-time Staff" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="userMessage">Message / Objectives</label>
+                  <textarea id="userMessage" class="form-textarea" placeholder="Tell me about your project, timeline, and vision..." required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit-btn" id="submitFormBtn">
+                  <span>Send Direct Message</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        `;
+
+        this.initFormLogic();
+        this.initClock();
+      }
+
+      initFormLogic() {
+        const copyBtn = this.querySelector('#copyEmailBtn');
+        const form = this.querySelector('#portfolioContactForm');
+
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(PORTFOLIO_DATA.profile.email).then(() => {
+            toastSystem.show('Email copied to clipboard!');
+          }).catch(() => {
+            toastSystem.show('alex.rivera.dev@gmail.com');
+          });
+        });
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameInput = this.querySelector('#userName');
+          const submitBtn = this.querySelector('#submitFormBtn');
+
+          submitBtn.innerHTML = `
+            <span>Sending Message...</span>
+          `;
+          submitBtn.style.opacity = '0.7';
+          submitBtn.disabled = true;
+
+          setTimeout(() => {
+            toastSystem.show(`Thank you ${nameInput.value}! Your message has been sent.`);
+            form.reset();
+            submitBtn.innerHTML = `
+              <span>Message Sent Successfully!</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            `;
+            setTimeout(() => {
+              submitBtn.innerHTML = `
+                <span>Send Direct Message</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              `;
+              submitBtn.style.opacity = '1';
+              submitBtn.disabled = false;
+            }, 3000);
+          }, 800);
+        });
+      }
+
+      initClock() {
+        const clockEl = this.querySelector('#liveTime');
+        const update = () => {
+          const now = new Date();
+          // PST time representation
+          const options = { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+          if (clockEl) {
+            clockEl.textContent = now.toLocaleTimeString('en-US', options) + ' PST';
+          }
+        };
+        update();
+        setInterval(update, 1000);
+      }
+    }
+    customElements.define('contact-section', ContactSection);
+
+    /* ==========================================================================
+       COMPONENT 10: <project-modal>
+       ========================================================================== */
+    class ProjectModal extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `
+          <div class="modal-dialog">
+            <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Modal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <div class="modal-preview-banner" id="modalBanner"></div>
+
+            <div class="modal-content-body">
+              <span class="modal-category" id="modalCategory">AI & Machine Learning</span>
+              <h2 class="modal-title" id="modalTitle">Project Title</h2>
+              <p class="modal-text" id="modalOverview">Project overview and details will be populated dynamically.</p>
+
+              <h4 style="font-family:var(--font-display); font-size:1.15rem; margin-bottom:1rem;">Key Highlights & Architecture</h4>
+              <div class="modal-features-list" id="modalFeatures"></div>
+
+              <div class="modal-actions">
+                <a href="#" target="_blank" class="btn-cta" id="modalLiveBtn">
+                  <span>Launch Live System</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <a href="#" target="_blank" class="btn-secondary" id="modalGithubBtn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  <span>Source Code</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        this.querySelector('#modalCloseBtn').addEventListener('click', () => this.close());
+        this.addEventListener('click', (e) => {
+          if (e.target === this) this.close();
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.classList.contains('active')) {
+            this.close();
+          }
+        });
+      }
+
+      open(project) {
+        this.querySelector('#modalBanner').innerHTML = project.svgBg;
+        this.querySelector('#modalCategory').textContent = project.categoryLabel;
+        this.querySelector('#modalTitle').textContent = project.title;
+        this.querySelector('#modalOverview').textContent = project.overview || project.description;
+
+        const featuresEl = this.querySelector('#modalFeatures');
+        featuresEl.innerHTML = (project.features || []).map(f => `
+          <div class="modal-feature-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>${f}</span>
+          </div>
+        `).join('');
+
+        this.querySelector('#modalLiveBtn').setAttribute('href', project.liveUrl);
+        this.querySelector('#modalGithubBtn').setAttribute('href', project.githubUrl);
+
+        this.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      close() {
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    customElements.define('project-modal', ProjectModal);
+
+    /* ==========================================================================
+       COMPONENT 11: <toast-system>
+       ========================================================================== */
+    class ToastSystem extends HTMLElement {
+      show(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>${message}</span>
+        `;
+        this.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(15px)';
+          setTimeout(() => toast.remove(), 400);
+        }, 3200);
+      }
+    }
+    customElements.define('toast-system', ToastSystem);
+
+    /* ==========================================================================
+       15. AMBIENT BACKGROUND CANVAS SIMULATION (INTERACTIVE PARTICLES)
+       ========================================================================== */
+    (function initAmbientCanvas() {
+      const canvas = document.getElementById('ambient-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+      let mouseX = -1000;
+      let mouseY = -1000;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.size = Math.random() * 2 + 1;
+          this.speedX = (Math.random() - 0.5) * 0.45;
+          this.speedY = (Math.random() - 0.5) * 0.45;
+          this.alpha = Math.random() * 0.5 + 0.15;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          // Mouse attraction
+          const dx = mouseX - this.x;
+          const dy = mouseY - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            this.x += dx * 0.015;
+            this.y += dy * 0.015;
+          }
+
+          if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(160, 160, 240, ${this.alpha})`;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < 48; i++) {
+        particles.push(new Particle());
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw connections between close particles
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 110) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(160, 160, 240, ${0.12 * (1 - dist / 110)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    /* ==========================================================================
+       16. GLOBAL BOOTSTRAP
+       ========================================================================== */
+    const projectModal = document.getElementById('projectModal');
+    const toastSystem = document.getElementById('toastSystem');
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Check saved theme & accent preferences
+    const savedTheme = localStorage.getItem('portfolio_theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+    const savedAccent = localStorage.getItem('portfolio_accent');
+    if (savedAccent) {
+      document.documentElement.setAttribute('data-accent', savedAccent);
+      const dots = document.querySelectorAll('.accent-dot');
+      dots.forEach(d => {
+        d.classList.toggle('active', d.getAttribute('data-color') === savedAccent);
+      });
+    }
+  </script>
+</body>
+</html>
